@@ -15,7 +15,7 @@
 		<div class="header-button" style="cursor: pointer;" id="settingsb"></div>
 		<div class="header-button" style="cursor: pointer;" id="aboutb"></div>
 		<div class="header-button" style="cursor: pointer;" id="playb"></div>
-		<img id="logo" style="float: right; width:auto;" src=./resources/images/pacman-3d-png-2.png height=100% />
+		<img id="logo" style="float: right; width:auto; cursor: pointer;" src=./resources/images/pacman-3d-png-2.png height=100% />
 	</div>
 	<div id="content">
 		<div class="contnt" id="welcome">
@@ -298,7 +298,7 @@
 				<img src=./resources/images/paclock.png width=50px height=50px /><br>
 				<input id="time" type="number" min="60" value="60" /><br>
 				<p>Number of enemies:</p>
-				<img src=./resources/images/ghost.png width=50px height=50px /><br>
+				<img id="ghost" style="width:auto" height=50px /><br>
 				<input type="range" min="1" max="4" value="2" class="slider" id="enemies">
 				<span id="en" style="font-weight: bold; color: yellow;"></span><br>
 			</div><br><br>
@@ -334,6 +334,7 @@
 		var numOfUsers = 0;
 		var contextBall1;
 		var currentUser;
+		var imageUrl = new Array();
 
 		$(document).ready(function () {
 			users = new Array;
@@ -349,8 +350,16 @@
 
 
 			//settings
+			
+			imageUrl[0] = "./resources/images/ghost1.png";
+			imageUrl[1] = "./resources/images/ghost2.png";
+			imageUrl[2] = "./resources/images/ghost3.png";
+			imageUrl[3] = "./resources/images/ghost4.png";
+
+
 			var slider = document.getElementById("myRange");
 			var output = document.getElementById("f");
+			
 			output.innerHTML = slider.value;
 			slider.oninput = function () {
 				output.innerHTML = this.value;
@@ -359,8 +368,10 @@
 			var slider2 = document.getElementById("enemies");
 			var output2 = document.getElementById("en");
 			output2.innerHTML = slider2.value;
+			$("#ghost").prop("src",imageUrl[slider2.value-1]);
 			slider2.oninput = function () {
 				output2.innerHTML = this.value;
+				$("#ghost").prop("src",imageUrl[this.value-1]);
 			}
 
 			var colorStr = $("#ball1c").val();
@@ -401,6 +412,16 @@
 		$("#aboutb").click(function () {
 			var modal = document.getElementById("aboutModal");
 			modal.style.display = "block";
+		});
+
+		
+		$("#playb").click(function () {
+			if(currentUser != null){
+				showGame();
+			}
+			else{
+				clicklogin();
+			}
 		});
 
 		$(".close").click(function () {
@@ -543,6 +564,7 @@
 			$("#en").val(enemiesR);
 			var enO = document.getElementById("en");
 			enO.innerHTML = enemiesR;
+			$("#ghost").prop("src",imageUrl[enemiesR-1]);
 
 		});
 
@@ -557,6 +579,19 @@
 			if (checkSimilarKeys(keypressed) == true) {
 				$(this).val(keypressed);
 			}
+		});
+
+		$("#logo").click(function () {
+			d1 = document.getElementById("welcome");
+			d2 = document.getElementById("login");
+			d3 = document.getElementById("register");
+			d4 = document.getElementById("settings");
+			d5 = document.getElementById("game");
+			d1.style.display = "block";
+			d2.style.display = "none";
+			d3.style.display = "none";
+			d4.style.display = "none";
+			d5.style.display = "none";
 		});
 
 		//color1

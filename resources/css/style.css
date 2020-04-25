@@ -16,7 +16,7 @@
 
 .contnt {
 	height: 900px;
-	padding: 50px;
+
 	opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
