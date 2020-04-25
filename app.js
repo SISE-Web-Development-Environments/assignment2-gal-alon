@@ -9,10 +9,10 @@ var interval;
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
-	Start();
 });
 
 function Start() {
+	//debugger;
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";

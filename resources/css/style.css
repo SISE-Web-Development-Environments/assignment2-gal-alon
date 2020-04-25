@@ -1,0 +1,245 @@
+#header {
+	background-image: url("../images/header.jpg");
+	width: 99.5%;
+	height: 275px;
+	position: relative;
+}
+
+#content {
+	width: 99%;
+	height: 1000px;
+	text-align: center;
+	background-image: url("../images/Background.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.contnt {
+	height: 900px;
+	padding: 50px;
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.7s;
+	display: block;
+	position: relative;
+	text-align: center;
+}
+
+.header-button {
+	width: 186px;
+	height: 60px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: inline-block;
+}
+
+#loginb {
+	background-image: url("../images/loginButton.png");
+	left: 14.4%;
+}
+
+#loginb:Hover {
+	background-image: url("../images/loginButtonOn.png");
+}
+
+#registerb {
+	background-image: url("../images/registerButton.png");
+	left: 13.3%;
+}
+
+#registerb:Hover {
+	background-image: url("../images/registerButtonOn.png");
+}
+
+#settingsb {
+	background-image: url("../images/settingsButton.png");
+	left: 12.2%;
+}
+
+#settingsb:Hover {
+	background-image: url("../images/settingsButtonOn.png");
+}
+
+#aboutb {
+	background-image: url("../images/aboutButton.png");
+	left: 11.1%;
+}
+
+#aboutb:Hover {
+	background-image: url("../images/aboutButtonOn.png");
+}
+
+#playb {
+	background-image: url("../images/playButton.png");
+	left: 10%;
+}
+
+#playb:Hover {
+	background-image: url("../images/playButtonOn.png");
+}
+
+#logo {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.7s;
+	left: 45px;
+	transition: all .2s ease-in-out;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+#logo:Hover {
+	transform: scale(1.1);
+}
+
+body {
+	background-color: #080120;
+	color: yellow;
+	font-family: "Comic Sans MS", Times, serif;
+}
+
+#loginbig {
+	background-image: url("../images/loginButton.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: inline-block;
+	width: 266px;
+	height: 240px;
+}
+
+#loginbig:Hover {
+	background-image: url("../images/loginButtonOn.png");
+}
+
+#registerbig {
+	background-image: url("../images/registerButton.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: inline-block;
+	width: 266px;
+	height: 240px;
+}
+
+#registerbig:Hover {
+	background-image: url("../images/registerButtonOn.png");
+}
+
+.stngs {
+	display: inline-block;
+	border-radius: 25px;
+	border-style: solid;
+	border-color: yellow;
+	width: 20%;
+	vertical-align: top;
+}
+
+.stngs:hover {
+	border-style: dotted;
+}
+
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	/* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	/* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* Modal Header */
+
+.modal-header {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
+/* Modal Body */
+
+.modal-body {
+	padding: 2px 16px;
+}
+
+/* Modal Content */
+
+.modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #888;
+	width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+/* Add Animation */
+
+@keyframes animatetop {
+	from {
+		top: -300px;
+		opacity: 0
+	}
+	to {
+		top: 0;
+		opacity: 1
+	}
+}
