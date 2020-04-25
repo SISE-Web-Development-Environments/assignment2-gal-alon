@@ -50,12 +50,12 @@
 }
 
 #registerb {
-	background-image: url("../images/registerButton.png");
+	background-image: url("../images/RegisterButton.png");
 	left: 13.3%;
 }
 
 #registerb:Hover {
-	background-image: url("../images/registerButtonOn.png");
+	background-image: url("../images/RegisterButtonOn.png");
 }
 
 #settingsb {
