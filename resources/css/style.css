@@ -129,7 +129,7 @@ body {
 }
 
 #registerbig {
-	background-image: url("../images/registerButton.png");
+	background-image: url("../images/RegisterButton.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -139,7 +139,7 @@ body {
 }
 
 #registerbig:Hover {
-	background-image: url("../images/registerButtonOn.png");
+	background-image: url("../images/RegisterButtonOn.png");
 }
 
 .stngs {
