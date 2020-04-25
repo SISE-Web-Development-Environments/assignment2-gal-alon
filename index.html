@@ -15,7 +15,7 @@
 		<div class="header-button" style="cursor: pointer;" id="settingsb"></div>
 		<div class="header-button" style="cursor: pointer;" id="aboutb"></div>
 		<div class="header-button" style="cursor: pointer;" id="playb"></div>
-		<img id="logo" style="float: right;" src=./resources/images/pacman-3d-png-2.png width=300px height=300px />
+		<img id="logo" style="float: right; width:auto;" src=./resources/images/pacman-3d-png-2.png height=100% />
 	</div>
 	<div id="content">
 		<div class="contnt" id="welcome">
@@ -31,7 +31,7 @@
 			<h3>User Name:</h3>
 			<input id="userL" type="text" /><br>
 			<h3>Password:</h3>
-			<input id="passL" type="text" /><br><br>
+			<input id="passL" type="password" /><br><br>
 			<input id="loginsubmit" type="submit" value="Login">
 		</div>
 
@@ -337,9 +337,7 @@
 
 		$(document).ready(function () {
 			users = new Array;
-			users[0] = new Array;
-			users[0][0] = "p";
-			users[0][1] = "p";
+			users[0] = {userName: "p", password: "p", fullName:"pp", email:"p@mail.com", dayb: "1", monthb: "1", yearb:"1900"}
 			numOfUsers++;
 
 

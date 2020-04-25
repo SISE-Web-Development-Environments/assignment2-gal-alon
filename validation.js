@@ -4,7 +4,7 @@ function validateLogin(users, numOfUsers) {
         return null;
     }
     for (var i = 0; i < numOfUsers; i++) {
-        if ($('#userL').val() == users[i][0] && $('#passL').val() == users[i][1]) {
+        if ($('#userL').val() == users[i].userName && $('#passL').val() == users[i].password) {
             return users[i];
         }
     }
@@ -13,7 +13,7 @@ function validateLogin(users, numOfUsers) {
 }
 
 function validateRegistration(users, numOfUsers) {
-    if ($('#userR').val() == '' || $('#passR').val() == '' || $('#nameR').val() == '') {
+    if ($('#userR').val() == '' || $('#passR').val() == '' || $('#nameR').val() == '' || $('#mailR').val() == '') {
         alert('Input can not be left blank');
         return null;
     }
@@ -37,14 +37,12 @@ function validateRegistration(users, numOfUsers) {
     }
 
     for (var i = 0; i < numOfUsers; i++) {
-        if ($('#userR').val() == users[i][0]){
+        if ($('#userR').val() == users[i].userName){
             alert('This user name has already been taken.');
             return null;
         }
     }
-    users[numOfUsers] = new Array;
-    users[numOfUsers][0] = $('#userR').val();
-    users[numOfUsers][1] = $('#passR').val();
+    users[numOfUsers]  = {userName: $('#userR').val(), password: $('#passR').val(), fullName:$('#nameR').val(), email:$('#mailR').val(), dayb: dobday, monthb: dobmonth, yearb:dobyear}
     alert('Registered successfully!');
     return users[numOfUsers];
 }
