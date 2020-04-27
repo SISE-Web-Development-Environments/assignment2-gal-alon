@@ -15,7 +15,8 @@
 		<div class="header-button" style="cursor: pointer;" id="settingsb"></div>
 		<div class="header-button" style="cursor: pointer;" id="aboutb"></div>
 		<div class="header-button" style="cursor: pointer;" id="playb"></div>
-		<img id="logo" style="float: right; width:auto; cursor: pointer;" src=./resources/images/pacman-3d-png-2.png height=100% />
+		<img id="logo" style="float: right; width:auto; cursor: pointer;" src=./resources/images/pacman-3d-png-2.png
+			height=100% />
 	</div>
 	<div id="content">
 		<div class="contnt" id="welcome">
@@ -338,7 +339,7 @@
 
 		$(document).ready(function () {
 			users = new Array;
-			users[0] = {userName: "p", password: "p", fullName:"pp", email:"p@mail.com", dayb: "1", monthb: "1", yearb:"1900"}
+			users[0] = { userName: "p", password: "p", fullName: "pp", email: "p@mail.com", dayb: "1", monthb: "1", yearb: "1900" }
 			numOfUsers++;
 
 
@@ -350,7 +351,9 @@
 
 
 			//settings
-			
+
+			defaultKeys();
+
 			imageUrl[0] = "./resources/images/ghost1.png";
 			imageUrl[1] = "./resources/images/ghost2.png";
 			imageUrl[2] = "./resources/images/ghost3.png";
@@ -359,7 +362,7 @@
 
 			var slider = document.getElementById("myRange");
 			var output = document.getElementById("f");
-			
+
 			output.innerHTML = slider.value;
 			slider.oninput = function () {
 				output.innerHTML = this.value;
@@ -368,10 +371,10 @@
 			var slider2 = document.getElementById("enemies");
 			var output2 = document.getElementById("en");
 			output2.innerHTML = slider2.value;
-			$("#ghost").prop("src",imageUrl[slider2.value-1]);
+			$("#ghost").prop("src", imageUrl[slider2.value - 1]);
 			slider2.oninput = function () {
 				output2.innerHTML = this.value;
-				$("#ghost").prop("src",imageUrl[this.value-1]);
+				$("#ghost").prop("src", imageUrl[this.value - 1]);
 			}
 
 			var colorStr = $("#ball1c").val();
@@ -405,8 +408,11 @@
 		});
 
 		$("#settingsb").click(function () {
-
-			clicksettings();
+			if (currentUser != null) {
+				clicksettings();
+			} else {
+				clicklogin();
+			}
 		});
 
 		$("#aboutb").click(function () {
@@ -414,12 +420,12 @@
 			modal.style.display = "block";
 		});
 
-		
+
 		$("#playb").click(function () {
-			if(currentUser != null){
+			if (currentUser != null) {
 				showGame();
 			}
-			else{
+			else {
 				clicklogin();
 			}
 		});
@@ -457,7 +463,7 @@
 		$("#loginsubmit").click(function () {
 			currentUser = validateLogin(users, numOfUsers);
 			if (currentUser != null) {
-				showGame();
+				clicksettings();
 			}
 		});
 
@@ -466,7 +472,7 @@
 			if (currentUser != null) {
 				numOfUsers++;
 				//alert("Welcome " + currentUser[0]);
-				showGame();
+				clicksettings();
 			}
 		});
 
@@ -481,38 +487,7 @@
 
 		$("#randomSettings").click(function () {
 
-			//random keys
-			var leftKR = Math.floor((Math.random() * 75) + 48);
-			while ((leftKR >= 58 && leftKR <= 64) || (leftKR >= 91 && leftKR <= 96)) {
-				var leftKR = Math.floor((Math.random() * 75) + 48);
-			}
-			var leftKRstr = String.fromCharCode(leftKR);
-			leftKRstr = leftKRstr.toLowerCase();
-			$("#leftK").val(leftKRstr);
-
-			var rightKR = Math.floor((Math.random() * 75) + 48);
-			while ((rightKR >= 58 && rightKR <= 64) || (rightKR >= 91 && rightKR <= 96) || checkSimilarKeys(String.fromCharCode(rightKR)) == false) {
-				var rightKR = Math.floor((Math.random() * 75) + 48);
-			}
-			var rightKRstr = String.fromCharCode(rightKR);
-			rightKRstr = rightKRstr.toLowerCase();
-			$("#rightK").val(rightKRstr);
-
-			var downKR = Math.floor((Math.random() * 75) + 48);
-			while ((downKR >= 58 && downKR <= 64) || (downKR >= 91 && downKR <= 96) || checkSimilarKeys(String.fromCharCode(downKR)) == false) {
-				var downKR = Math.floor((Math.random() * 75) + 48);
-			}
-			var downKRstr = String.fromCharCode(downKR);
-			downKRstr = downKRstr.toLowerCase();
-			$("#downK").val(downKRstr);
-
-			var upKR = Math.floor((Math.random() * 75) + 48);
-			while ((upKR >= 58 && upKR <= 64) || (upKR >= 91 && upKR <= 96) || checkSimilarKeys(String.fromCharCode(upKR)) == false) {
-				var upKR = Math.floor((Math.random() * 75) + 48);
-			}
-			var upKRstr = String.fromCharCode(upKR);
-			upKRstr = upKRstr.toLowerCase();
-			$("#upK").val(upKRstr);
+			defaultKeys();
 
 			//random balls
 
@@ -564,18 +539,61 @@
 			$("#en").val(enemiesR);
 			var enO = document.getElementById("en");
 			enO.innerHTML = enemiesR;
-			$("#ghost").prop("src",imageUrl[enemiesR-1]);
+			$("#ghost").prop("src", imageUrl[enemiesR - 1]);
 
 		});
+
+		var prevkey;
+
+		function defaultKeys(){
+			$("#leftK").val("ArrowLeft");
+			$("#rightK").val("ArrowRight");
+			$("#upK").val("ArrowUp");
+			$("#downK").val("ArrowDown");
+		}
 
 		$(".keybindL").click(function () {
+			prevkey = $(this).val();
 			$(this).val("Please select a key...");
 		});
+
+		$(".keybindL")
+			.focusout(function () {
+				if ($(this).val() == "Please select a key...") {
+					$(this).val(prevkey);
+				}
+			})
 
 		$(".keybindL").bind('keypress', function (e) {
 			var code = e.keyCode || e.which;
 			var keypressed = String.fromCharCode(code);
 			keypressed = keypressed.toLowerCase();
+			if (checkSimilarKeys(keypressed) == true) {
+				$(this).val(keypressed);
+			}
+		});
+
+		$(".keybindL").bind('keydown', function (e) {
+			var code = e.keyCode || e.which;
+			var keypressed = String.fromCharCode(code);
+			keypressed = keypressed.toLowerCase();
+			switch (keypressed) {
+				case ("%"):
+					keypressed = "ArrowLeft";
+					break;
+				case ("&"):
+					keypressed = "ArrowUp";
+					break;
+				case ("("):
+					keypressed = "ArrowDown";
+					break;
+				case ("'"):
+					keypressed = "ArrowRight";
+					break;
+				default:
+					return;
+					break;
+			}
 			if (checkSimilarKeys(keypressed) == true) {
 				$(this).val(keypressed);
 			}
