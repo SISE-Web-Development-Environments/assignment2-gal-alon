@@ -5,6 +5,14 @@
 	position: relative;
 }
 
+#menu {
+	width: 70%;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 #content {
 	width: 99%;
 	height: 1000px;
@@ -16,15 +24,12 @@
 
 .contnt {
 	height: 900px;
-
 	opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
 	animation-duration: 0.7s;
-	display: block;
-	position: relative;
-	text-align: center;
+
 }
 
 .header-button {
@@ -34,15 +39,11 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	position: relative;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	display: inline-block;
 }
 
 #loginb {
 	background-image: url("../images/loginButton.png");
-	left: 14.4%;
 }
 
 #loginb:Hover {
@@ -51,7 +52,7 @@
 
 #registerb {
 	background-image: url("../images/RegisterButton.png");
-	left: 13.3%;
+	right: 1%;
 }
 
 #registerb:Hover {
@@ -60,7 +61,7 @@
 
 #settingsb {
 	background-image: url("../images/settingsButton.png");
-	left: 12.2%;
+	right: 2%;
 }
 
 #settingsb:Hover {
@@ -69,7 +70,7 @@
 
 #aboutb {
 	background-image: url("../images/aboutButton.png");
-	left: 11.1%;
+	right: 3%;
 }
 
 #aboutb:Hover {
@@ -78,7 +79,7 @@
 
 #playb {
 	background-image: url("../images/playButton.png");
-	left: 10%;
+	right: 4%;
 }
 
 #playb:Hover {
@@ -91,7 +92,6 @@
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
 	animation-duration: 0.7s;
-	left: 45px;
 	transition: all .2s ease-in-out;
 }
 

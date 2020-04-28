@@ -28,6 +28,21 @@ function validateRegistration(users, numOfUsers) {
         return null;
     }
 
+    if(pass.length < 6){
+        alert('Password must be at least 6 characters.');
+        return null;
+    }
+
+    if(validateEmail($('#mailR').val()) == false){
+        alert('Please enter a valid mail.');
+        return null;
+    }
+
+    if(checkIfOnlyContainLetters($('#nameR').val()) == false){
+        alert('Name must not contain numbers.');
+        return null;
+    }
+
     var dobday = $('#dob-day option:selected').text();
     var dobmonth = $('#dob-month option:selected').text();
     var dobyear = $('#dob-year option:selected').text();
@@ -86,6 +101,14 @@ function checkIfContainLetters(str) {
     return false;
 }
 
+function checkIfOnlyContainLetters(str){
+    for (var i = 0; i < str.length; i++) {
+        if (isNaN(str[i]) == false)
+            return false;
+    }
+    return true;
+}
+
 function checkOnlyNumbers(str){
     debugger;
     for (var i = 0; i < str.length; i++) {
@@ -95,6 +118,10 @@ function checkOnlyNumbers(str){
     return true;
 }
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 
 

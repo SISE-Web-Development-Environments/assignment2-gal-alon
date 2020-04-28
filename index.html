@@ -10,17 +10,22 @@
 
 <body>
 	<div style="text-align:center;" id="header">
-		<div class="header-button" style="cursor: pointer;" id="loginb"></div>
-		<div class="header-button" style="cursor: pointer;" id="registerb"></div>
-		<div class="header-button" style="cursor: pointer;" id="settingsb"></div>
-		<div class="header-button" style="cursor: pointer;" id="aboutb"></div>
-		<div class="header-button" style="cursor: pointer;" id="playb"></div>
+		<!--Put our Names-->
+		<div style="text-align:center;" id="menu">
+			<div class="header-button" style="cursor: pointer;" id="loginb"></div>
+			<div class="header-button" style="cursor: pointer;" id="registerb"></div>
+			<div class="header-button" style="cursor: pointer;" id="settingsb"></div>
+			<div class="header-button" style="cursor: pointer;" id="aboutb"></div>
+			<div class="header-button" style="cursor: pointer;" id="playb"></div>
+		</div>
 		<img id="logo" style="float: right; width:auto; cursor: pointer;" src=./resources/images/pacman-3d-png-2.png
 			height=100% />
-	</div>
+
+	</div><br><br>
 	<div id="content">
 		<div class="contnt" id="welcome">
-			<img src=./resources/images/logo2.png height="22%" style="width:auto;" /><br>
+			<br>
+			<img id="big_logo" src=./resources/images/logo2.png height="22%" style="width:auto;" /><br>
 			<div style="cursor: pointer;" id="registerbig"></div>
 			<div style="cursor: pointer;" id="loginbig"></div>
 		</div>
@@ -318,6 +323,7 @@
 			</div>
 		</div>
 		<div id="game" style="display: none;">
+			<br>
 			<div id="score">
 				<label for="lblScore">SCORE:</label>
 				<input id="lblScore" type="text" />
@@ -545,7 +551,7 @@
 
 		var prevkey;
 
-		function defaultKeys(){
+		function defaultKeys() {
 			$("#leftK").val("ArrowLeft");
 			$("#rightK").val("ArrowRight");
 			$("#upK").val("ArrowUp");
@@ -564,37 +570,14 @@
 				}
 			})
 
-		$(".keybindL").bind('keypress', function (e) {
-			var code = e.keyCode || e.which;
-			var keypressed = String.fromCharCode(code);
-			keypressed = keypressed.toLowerCase();
-			if (checkSimilarKeys(keypressed) == true) {
-				$(this).val(keypressed);
-			}
-		});
 
 		$(".keybindL").bind('keydown', function (e) {
-			var code = e.keyCode || e.which;
-			var keypressed = String.fromCharCode(code);
-			keypressed = keypressed.toLowerCase();
-			switch (keypressed) {
-				case ("%"):
-					keypressed = "ArrowLeft";
-					break;
-				case ("&"):
-					keypressed = "ArrowUp";
-					break;
-				case ("("):
-					keypressed = "ArrowDown";
-					break;
-				case ("'"):
-					keypressed = "ArrowRight";
-					break;
-				default:
-					return;
-					break;
+			var keypressed = e.key;
+			if (keypressed == " ") {
+				keypressed = "Space";
 			}
 			if (checkSimilarKeys(keypressed) == true) {
+
 				$(this).val(keypressed);
 			}
 		});
