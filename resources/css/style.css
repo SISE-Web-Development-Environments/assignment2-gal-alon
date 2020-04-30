@@ -149,6 +149,49 @@ body {
 	background-image: url("../images/RegisterButtonOn.png");
 }
 
+#canvas{
+	border-style: solid;
+	display: block;
+}
+
+#gameCanvas{
+	background-image: url("../images/gamebg.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#gameInfo{
+		
+	background-image: url("../images/bginfo.png");
+	background-position: left;
+	background-repeat: no-repeat;
+	background-size: cover;
+	line-height: 3;
+	border-radius: 15px 0px 0px 15px;
+
+}
+
+.gameDisplay{
+	font-size: 12px;
+	width: 50%;
+	border-style: solid;
+	border-color: yellow;
+	text-align: center;
+}
+
+.badge{
+	background-color: #e7e7e7; color: black;
+}
+
+#gameSettings{
+	border-radius: 0px 15px 15px 0px;
+	background-image: url("../images/bgsettings.png");
+	background-position: right;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 .stngs {
 	display: inline-block;
 	border-radius: 25px;
