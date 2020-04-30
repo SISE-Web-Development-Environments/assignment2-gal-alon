@@ -6,6 +6,8 @@
 	<script src="./jquery-3.4.1.slim.min.js"></script>
 	<script type="text/javascript" src="./app.js"></script>
 	<script type="text/javascript" src="./validation.js"></script>
+	<title>Pacman Free Game</title>
+	<link rel="icon" href="./resources/images/fruit.png">
 </head>
 
 <body>
@@ -338,7 +340,7 @@
 					<span id="en" style="font-weight: bold; color: yellow;"></span><br>
 				</div><br><br>
 				<input id="randomSettings" type="submit" value="Random Settings">
-				<input id="applySettings" type="submit" value="Apply Settings">
+				<input class="applySettings" type="submit" value="Apply Settings">
 			</div>
 			<div id="aboutModal" class="modal">
 				<div class="modal-content">
@@ -394,7 +396,7 @@
 						<span id="noecs"></span><br>
 					</div>
 				</div><br>
-				<input id="applySettings" type="submit" value="Reset Game">
+				<input class="applySettings" type="submit" value="Reset Game">
 			</div>
 		</div>
 	</content>
@@ -550,9 +552,10 @@
 
 
 
-		$("#applySettings").click(function () {
+		$(".applySettings").click(function () {
 			if (validateSettings() == true) {
 				//apply vars
+				stopGame();
 				fillLables($("#leftK").val(), $("#rightK").val(), $("#upK").val(), $("#downK").val(), $("#ball1c").val(), $("#ball1p").val(), $("#ball2c").val(), $("#ball2p").val(), $("#ball3c").val(), $("#ball3p").val(), $("#time").val(), $("#enemies").val());
 				showGame();
 			}
@@ -646,6 +649,9 @@
 			if (checkSimilarKeys(keypressed) == true) {
 
 				$(this).val(keypressed);
+			}
+			else{
+				alert("This key is already Taken. Please choose another key.")
 			}
 		});
 
