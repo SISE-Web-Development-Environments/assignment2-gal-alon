@@ -14,6 +14,9 @@
 	<audio id="bgm">
 		<source id="bgm" src=./resources/audio/bgmusic.mp3 type="audio/mpeg">
 	</audio>
+	<audio id="intro">
+		<source id="intro" src=./resources/audio/intro.mp3 type="audio/mpeg">
+	</audio>
 	<audio id="chomp">
 		<source id="chomp" src=./resources/audio/pacman_chomp.wav type="audio/mpeg">
 	</audio>
@@ -79,8 +82,10 @@
 				<input id="passR" type="password" /><br>
 				<h3>Mail address:</h3>
 				<input id="mailR" type="text" /><br>
-				<h3>Full Name:</h3>
-				<input id="nameR" type="text" /><br>
+				<h3>First Name:</h3>
+				<input type="text" id="fnameR" /><br>
+				<h3>Last Name:</h3>
+				<input type="text" id="lnameR" /><br>
 				<h3>Birthday:</h3>
 				<select name="dob-day" id="dob-day">
 					<option value="">Day</option>
@@ -348,14 +353,22 @@
 						<span class="close">&times;</span>
 						<h2>About</h2>
 					</div>
-					<div class="modal-body">
-						<!---------------------------- write text about -------------------------------->
+					<div class="modal-body" style="text-align: center; color: black;">
+						This website was created by:<br>
+						Alon Golombek, Gal Tadir<br><br>
+						JQuery Plugin Usage: Validation, Game Functionality<br><br>
+						Templates: Modal Dialog Window: <a href="https://www.w3schools.com/howto/howto_css_modals.asp">W3schools Modal Dialog Template</a><br><br>
+						Difficulties: Merging the app with the settings, design, form-validation, learining new syntax (JQuery)<br><br>
+						Contact us:<br>
+						alongolo@post.bgu.ac.il<br>
+						galtad@post.bgu.ac.il‏<br>
 					</div>
 				</div>
 			</div>
 			<div id="game" style="display: none;">
 				<div id="gameArea" style="text-align: center; display: flex; width: 100%; margin: auto;">
 					<div class="gameDisplay" id="gameInfo">
+						<label id="userId" style="font-size: 20px;"></label><br>
 						<div id="score">
 							<label for="lblScore">SCORE:</label><br>
 							<input id="lblScore" type="text" />
@@ -381,6 +394,8 @@
 						<span class="badge" id="upks"></span><br>
 						<label>Down Key:</label><br>
 						<span class="badge" id="downks"></span><br><br>
+						<label id="ballslbl">Number of Balls::</label><br>
+						<span id="ballscs"></span><br><br>
 						<label id="ball1lbl">Ball 1 (60%):</label><br>
 						<span id="ball1cs"></span><br>
 						<span id="ball1cscr"></span><br><br>
@@ -396,7 +411,8 @@
 						<span id="noecs"></span><br>
 					</div>
 				</div><br>
-				<input class="applySettings" type="submit" value="Reset Game">
+				<input class="applySettings" type="submit" value="Reset Game"><br>
+				<img id="contollers" src=./resources/images/controllersNormal.png height="auto" style="width:50%;" /><br>
 			</div>
 		</div>
 	</content>
@@ -556,8 +572,9 @@
 			if (validateSettings() == true) {
 				//apply vars
 				stopGame();
-				fillLables($("#leftK").val(), $("#rightK").val(), $("#upK").val(), $("#downK").val(), $("#ball1c").val(), $("#ball1p").val(), $("#ball2c").val(), $("#ball2p").val(), $("#ball3c").val(), $("#ball3p").val(), $("#time").val(), $("#enemies").val());
+				fillLables($("#leftK").val(), $("#rightK").val(), $("#upK").val(), $("#downK").val(), $("#ball1c").val(), $("#ball1p").val(), $("#ball2c").val(), $("#ball2p").val(), $("#ball3c").val(), $("#ball3p").val(), $("#time").val(), $("#enemies").val(),$("#myRange").val());
 				showGame();
+				$(window).scrollTop($('#content').offset().top);
 			}
 		});
 
@@ -791,11 +808,15 @@
 			window.clearInterval(interval);
 		}
 
-		function fillLables(leftkey, rightkey, upkey, downkey, ball1color, ball1point, ball2color, ball2point, ball3color, ball3point, time, numberOfEnemies) {
+		function fillLables(leftkey, rightkey, upkey, downkey, ball1color, ball1point, ball2color, ball2point, ball3color, ball3point, time, numberOfEnemies,numberOfBalls) {
+			$("#userId").html("User: <b>" + currentUser.userName + "</b>");
+			
 			$("#leftks").html(leftkey);
 			$("#rightks").html(rightkey);
 			$("#upks").html(upkey);
 			$("#downks").html(downkey);
+
+			$("#ballscs").html(numberOfBalls);
 
 			$("#ball1lbl").attr("style", "color: " + ball1color);
 			$("#ball1cs").html(ball1color);

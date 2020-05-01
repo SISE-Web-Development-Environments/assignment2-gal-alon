@@ -29,6 +29,7 @@ var left;
 var right;
 var down;
 var up;
+var eated;
 
 $(document).ready(function () {
 	context = canvas.getContext("2d");
@@ -36,6 +37,7 @@ $(document).ready(function () {
 
 function Start() {
 	//debugger;
+	eated=0;
 	totalFood = $("#myRange").val();
 	board = new Array();
 	score = 0;
@@ -45,7 +47,7 @@ function Start() {
 	var food_15remain = totalFood * 0.3;
 	var food_25remain = totalFood * 0.1;
 	var pacman_remain = 1;
-	monster_Number = $("#enemies").val();;
+	monster_Number =$("#enemies").val();
 	live_remain = 5;
 	monster_time = 5;
 	move_Candy_alive = true;
@@ -61,6 +63,8 @@ function Start() {
 	rightkey = $("#rightK").val();
 	upkey = $("#upK").val();
 	downkey = $("#downK").val();
+	$("#intro").prop("volume", 0.1);
+	$('audio#intro')[0].play();
 	$("#bgm").prop("volume", 0.1);
 	$('audio#bgm')[0].play();
 
@@ -73,25 +77,33 @@ function Start() {
 				board[i][j] = 3;
 				monster1.i = i;
 				monster1.j = j;
-				monster1.hasFood = false;
+				monster1.hasFood = true;
+				monster1.candy = 11;
+				food_5remain--;
 			}
 			else if (monster_Number > 1 && i == 0 && j == 9) {
 				board[i][j] = 3;
 				monster2.i = i;
 				monster2.j = j;
-				monster2.hasFood = false;
+				monster2.hasFood = true;
+				monster2.candy = 11;
+				food_5remain--;
 			}
 			else if (monster_Number > 2 && i == 9 && j == 0) {
 				board[i][j] = 3;
 				monster3.i = i;
 				monster3.j = j;
-				monster3.hasFood = false;
+				monster3.hasFood = true;
+				monster3.candy = 11;
+				food_5remain--;
 			}
 			else if (monster_Number > 3 && i == 9 && j == 9) {
 				board[i][j] = 3;
 				monster4.i = i;
 				monster4.j = j;
-				monster4.hasFood = false;
+				monster4.hasFood = true;
+				monster4.candy = 11;
+				food_5remain--;
 			}
 			else if (
 				(i == 3 && j == 3) ||
@@ -156,16 +168,21 @@ function Start() {
 	addEventListener(
 		"keydown",
 		function (e) {
-			if (e.key == leftkey)
+			if (e.key == leftkey){
 				left = true;
+				$("#contollers").attr("src","./resources/images/controllersLeft.png");
+			}
 			else if (e.key == rightkey) {
 				right = true;
+				$("#contollers").attr("src","./resources/images/controllersRight.png");
 			}
 			else if (e.key == downkey) {
 				down = true;
+				$("#contollers").attr("src","./resources/images/controllersDown.png");
 			}
 			else if (e.key == upkey) {
 				up = true;
+				$("#contollers").attr("src","./resources/images/controllersUp.png");
 			}
 		},
 		false
@@ -184,6 +201,7 @@ function Start() {
 			else if (e.key == upkey) {
 				up = false;
 			}
+			$("#contollers").attr("src","./resources/images/controllersNormal.png");
 		},
 		false
 	);
@@ -305,6 +323,7 @@ function Draw() {
 			}
 		}
 	}
+	debugger;
 }
 
 function updateMonster(monster) {
@@ -609,21 +628,25 @@ function UpdatePosition() {
 	}
 	if (board[shape.i][shape.j] == 1) {
 		score++;
+		eated++;
 		$("#chomp").prop("volume", 0.1);
 			$('audio#chomp')[0].play();
 	}
 	if (board[shape.i][shape.j] == 11) {
 		score = score + ball1Point;
+		eated++;
 		$("#chomp").prop("volume", 0.1);
 			$('audio#chomp')[0].play();
 	}
 	if (board[shape.i][shape.j] == 12) {
 		score = score + ball2Point;
+		eated++;
 		$("#chomp").prop("volume", 0.1);
 			$('audio#chomp')[0].play();
 	}
 	if (board[shape.i][shape.j] == 13) {
 		score = score + ball3Point;
+		eated++;
 		$("#chomp").prop("volume", 0.1);
 			$('audio#chomp')[0].play();
 	}
@@ -656,6 +679,7 @@ function UpdatePosition() {
 	var currentTime = new Date();
 	time_elapsed = (totalGameTime - (currentTime - start_time)) / 1000;
 	if (score < 100 && time_elapsed <= 0) {
+		window.clearInterval(interval);
 		window.alert("You are better than " + score + " points!");
 	}
 	else if (score >= 100 && time_elapsed <= 0) {
@@ -665,6 +689,10 @@ function UpdatePosition() {
 	else if (live_remain == 0) {
 		window.clearInterval(interval);
 		window.alert("loser!");
+	}
+	else if (eated == totalFood) {
+		window.clearInterval(interval);
+		window.alert("Winner!");
 	}
 	else {
 		Draw();

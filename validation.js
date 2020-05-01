@@ -13,7 +13,7 @@ function validateLogin(users, numOfUsers) {
 }
 
 function validateRegistration(users, numOfUsers) {
-    if ($('#userR').val() == '' || $('#passR').val() == '' || $('#nameR').val() == '' || $('#mailR').val() == '') {
+    if ($('#userR').val() == '' || $('#passR').val() == '' || $('#fnameR').val() == '' || $('#lnameR').val() == '' || $('#mailR').val() == '') {
         alert('Input can not be left blank');
         return null;
     }
@@ -38,7 +38,7 @@ function validateRegistration(users, numOfUsers) {
         return null;
     }
 
-    if(checkIfOnlyContainLetters($('#nameR').val()) == false){
+    if(checkIfOnlyContainLetters($('#fnameR').val()) == false || checkIfOnlyContainLetters($('#lnameR').val()) == false){
         alert('Name must not contain numbers.');
         return null;
     }
@@ -57,7 +57,7 @@ function validateRegistration(users, numOfUsers) {
             return null;
         }
     }
-    users[numOfUsers]  = {userName: $('#userR').val(), password: $('#passR').val(), fullName:$('#nameR').val(), email:$('#mailR').val(), dayb: dobday, monthb: dobmonth, yearb:dobyear}
+    users[numOfUsers]  = {userName: $('#userR').val(), password: $('#passR').val(), firstName:$('#fnameR').val(), lastName:$('#lnameR').val(), email:$('#mailR').val(), dayb: dobday, monthb: dobmonth, yearb:dobyear}
     alert('Registered successfully!');
     return users[numOfUsers];
 }
