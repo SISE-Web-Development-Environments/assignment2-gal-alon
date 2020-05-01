@@ -43,11 +43,13 @@ function validateRegistration(users, numOfUsers) {
         return null;
     }
 
-    var dobday = $('#dob-day option:selected').text();
-    var dobmonth = $('#dob-month option:selected').text();
-    var dobyear = $('#dob-year option:selected').text();
-    if(checkOnlyNumbers(dobday) == false || checkOnlyNumbers(dobmonth) == false || checkOnlyNumbers(dobyear) == false){
+    if($('#dob').val() == ''){
         alert('Please fill date of birth.');
+        return null;
+    }
+
+    if(validateDOB($("#dob").val()) == false){
+        alert('Please select date of birth.');
         return null;
     }
 
@@ -57,7 +59,7 @@ function validateRegistration(users, numOfUsers) {
             return null;
         }
     }
-    users[numOfUsers]  = {userName: $('#userR').val(), password: $('#passR').val(), firstName:$('#fnameR').val(), lastName:$('#lnameR').val(), email:$('#mailR').val(), dayb: dobday, monthb: dobmonth, yearb:dobyear}
+    users[numOfUsers]  = {userName: $('#userR').val(), password: $('#passR').val(), firstName:$('#fnameR').val(), lastName:$('#lnameR').val(), email:$('#mailR').val(), dayb: $('#dob').val()}
     alert('Registered successfully!');
     return users[numOfUsers];
 }
@@ -123,5 +125,9 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+function validateDOB(date){
+    var re = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+    return re.test(String(date).toLowerCase());
+}
 
 
