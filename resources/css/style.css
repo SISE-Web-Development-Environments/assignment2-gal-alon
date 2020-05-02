@@ -172,6 +172,10 @@ body {
 
 }
 
+.applySettings:hover{
+	background: #4dae3c;
+}
+
 .gameDisplay{
 	font-size: 12px;
 	width: 50%;
@@ -366,7 +370,7 @@ body {
   }
   
   .btn--green:hover {
-	background: #4dae3c;
+	background: #266e19;
   }
   
   /* ==========================================================================

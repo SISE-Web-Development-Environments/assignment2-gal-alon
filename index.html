@@ -3,9 +3,8 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="./resources/css/style.css" />
-	<script src="./jquery-3.4.1.slim.min.js"></script>
-	<script type="text/javascript" src="./app.js"></script>
-	<script type="text/javascript" src="./validation.js"></script>
+	<script src="./js/jquery-3.4.1.slim.min.js"></script>
+
 	<!-- Icons font CSS-->
 	<link href="./vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 	<link href="./vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
@@ -233,8 +232,8 @@
 					<input type="range" min="1" max="4" value="2" class="slider" id="enemies">
 					<span id="en" style="font-weight: bold; color: yellow;"></span><br>
 				</div><br><br>
-				<input id="randomSettings" type="submit" value="Random Settings">
-				<input class="applySettings" type="submit" value="Apply Settings">
+				<input class="btn btn--radius btn--green" id="randomSettings" type="submit" value="Random Settings">
+				<input class="applySettings btn btn--radius btn--green" type="submit" value="Apply Settings">
 			</div>
 			<div id="aboutModal" class="modal">
 				<div class="modal-content">
@@ -276,7 +275,8 @@
 						<div id="life">
 							<label for="lblLife">LIFE REMAINING:</label><br>
 							<input id="lblLife" type="text" />
-						</div>
+						</div><br>
+						<input id="resetGame" class="applySettings btn btn--radius btn--green" type="submit" value="Reset Game"><br>
 					</div>
 					<div style="text-align: center;" id="gameCanvas" height="600" width="600">
 						<canvas id="canvas" height="600" width="600"></canvas>
@@ -307,447 +307,27 @@
 						<span id="noecs"></span><br>
 					</div>
 				</div><br>
-				<input class="applySettings" type="submit" value="Reset Game"><br>
 				<img id="contollers" src=./resources/images/controllersNormal.png height="auto"
 					style="width:50%;" /><br>
+				
 			</div>
 		</div>
 	</content>
 	<footer>
 		HTML 5 Game. Mail for contact: alongolo@post.bgu.ac.il, galtad@post.bgu.ac.il‏
 	</footer>
-	<script>
-		var users;
-		var numOfUsers = 0;
-		var contextBall1;
-		var currentUser;
-		var imageUrl = new Array();
-
-		$(document).ready(function () {
-			users = new Array;
-			users[0] = { userName: "p", password: "p", fullName: "pp", email: "p@mail.com", dayb: "1", monthb: "1", yearb: "1900" }
-			numOfUsers++;
-
-
-			var str = $("#myRange").val();
-			$("#f").html(str);
-
-			var str = $("#enemies").val();
-			$("#en").html(str);
-
-
-			//settings
-
-			defaultKeys();
-
-			imageUrl[0] = "./resources/images/ghost1.png";
-			imageUrl[1] = "./resources/images/ghost2.png";
-			imageUrl[2] = "./resources/images/ghost3.png";
-			imageUrl[3] = "./resources/images/ghost4.png";
-
-
-			var slider = document.getElementById("myRange");
-			var output = document.getElementById("f");
-
-			output.innerHTML = slider.value;
-			slider.oninput = function () {
-				output.innerHTML = this.value;
-			}
-
-			var slider2 = document.getElementById("enemies");
-			var output2 = document.getElementById("en");
-			output2.innerHTML = slider2.value;
-			$("#ghost").prop("src", imageUrl[slider2.value - 1]);
-			slider2.oninput = function () {
-				output2.innerHTML = this.value;
-				$("#ghost").prop("src", imageUrl[this.value - 1]);
-			}
-
-			var colorStr = $("#ball1c").val();
-			$("#ball1").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-
-			var colorStr = $("#ball2c").val();
-			$("#ball2").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-
-			var colorStr = $("#ball3c").val();
-			$("#ball3").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-
-
-		});
-
-		$("#loginb").click(function () {
-
-			clicklogin();
-		});
-
-		$("#loginbig").click(function () {
-			clicklogin();
-		});
-
-		$("#registerb").click(function () {
-			clickregister();
-		});
-
-
-		$("#registerbig").click(function () {
-			clickregister();
-		});
-
-		$("#settingsb").click(function () {
-			if (currentUser != null) {
-				clicksettings();
-			} else {
-				clicklogin();
-			}
-		});
-
-		$("#aboutb").click(function () {
-			var modal = document.getElementById("aboutModal");
-			modal.style.display = "block";
-		});
-
-
-		$("#playb").click(function () {
-			if (currentUser != null) {
-				showGame();
-			}
-			else {
-				clicklogin();
-			}
-		});
-
-		$(".close").click(function () {
-			var span = document.getElementsByClassName("close")[0];
-			var modal = document.getElementById("aboutModal");
-			modal.style.display = "none";
-		});
-
-		window.onclick = function (event) {
-			var modal = document.getElementById("aboutModal");
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		}
-
-		//disable scrolling with keys
-		window.addEventListener("keydown", function (e) {
-			if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-				e.preventDefault();
-			}
-		}, false);
-
-		$(document).keyup(function (e) {
-			if (e.keyCode === 27) {
-				var modal = document.getElementById("aboutModal");
-				modal.style.display = "none";
-			}
-		});
-
-
-
-
-		$("#loginsubmit").click(function () {
-			currentUser = validateLogin(users, numOfUsers);
-			if (currentUser != null) {
-				clicksettings();
-			}
-		});
-
-		$("#registersubmit").click(function () {
-			currentUser = validateRegistration(users, numOfUsers);
-			if (currentUser != null) {
-				numOfUsers++;
-				//alert("Welcome " + currentUser[0]);
-				clicksettings();
-			}
-		});
-
-
-
-
-		$(".applySettings").click(function () {
-			if (validateSettings() == true) {
-				//apply vars
-				stopGame();
-				fillLables($("#leftK").val(), $("#rightK").val(), $("#upK").val(), $("#downK").val(), $("#ball1c").val(), $("#ball1p").val(), $("#ball2c").val(), $("#ball2p").val(), $("#ball3c").val(), $("#ball3p").val(), $("#time").val(), $("#enemies").val(), $("#myRange").val());
-				showGame();
-				$(window).scrollTop($('#content').offset().top);
-			}
-		});
-
-		$("#randomSettings").click(function () {
-
-			defaultKeys();
-
-			//random balls
-
-			var ballsR = Math.floor((Math.random() * 41) + 50);
-			$("#myRange").val(ballsR);
-			$("#f").html(ballsR);
-
-			var $options = $('#ball1c').find('option'),
-				random = ~~(Math.random() * $options.length);
-			$options.eq(random).prop('selected', true);
-			var colorStr = $("#ball1c").val();
-			$("#ball1").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-
-			var $options = $('#ball2c').find('option'),
-				random = ~~(Math.random() * $options.length);
-			$options.eq(random).prop('selected', true);
-			while ($("#ball2c").val() == $("#ball1c").val()) {
-				var $options = $('#ball2c').find('option'),
-					random = ~~(Math.random() * $options.length);
-				$options.eq(random).prop('selected', true);
-			}
-			var colorStr = $("#ball2c").val();
-			$("#ball2").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-
-			var $options = $('#ball3c').find('option'),
-				random = ~~(Math.random() * $options.length);
-			$options.eq(random).prop('selected', true);
-			while ($("#ball3c").val() == $("#ball1c").val() || $("#ball3c").val() == $("#ball2c").val()) {
-				var $options = $('#ball3c').find('option'),
-					random = ~~(Math.random() * $options.length);
-				$options.eq(random).prop('selected', true);
-			}
-			var colorStr = $("#ball3c").val();
-			$("#ball3").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-
-			var points1 = Math.floor((Math.random() * 5) + 1);
-			var points2 = Math.floor((Math.random() * 10) + 6);
-			var points3 = Math.floor((Math.random() * 11) + 15);
-			$("#ball1p").val(points1);
-			$("#ball2p").val(points2);
-			$("#ball3p").val(points3);
-
-			//random general
-			var timeR = Math.floor((Math.random() * 120) + 60);
-			$("#time").val(timeR);
-
-			var enemiesR = Math.floor((Math.random() * 4) + 1);
-			$("#enemies").val(enemiesR);
-			$("#en").val(enemiesR);
-			var enO = document.getElementById("en");
-			enO.innerHTML = enemiesR;
-			$("#ghost").prop("src", imageUrl[enemiesR - 1]);
-
-		});
-
-		var prevkey;
-
-		function defaultKeys() {
-			$("#leftK").val("ArrowLeft");
-			$("#rightK").val("ArrowRight");
-			$("#upK").val("ArrowUp");
-			$("#downK").val("ArrowDown");
-		}
-
-		$(".keybindL").click(function () {
-			prevkey = $(this).val();
-			$(this).val("Please select a key...");
-		});
-
-		$(".keybindL")
-			.focusout(function () {
-				if ($(this).val() == "Please select a key...") {
-					$(this).val(prevkey);
-				}
-			})
-
-
-		$(".keybindL").bind('keydown', function (e) {
-			var keypressed = e.key;
-			if (keypressed == " ") {
-				keypressed = "Space";
-			}
-			if (checkSimilarKeys(keypressed) == true) {
-
-				$(this).val(keypressed);
-			}
-			else {
-				alert("This key is already Taken. Please choose another key.")
-			}
-		});
-
-		$("#logo").click(function () {
-			d1 = document.getElementById("welcome");
-			d2 = document.getElementById("login");
-			d3 = document.getElementById("register");
-			d4 = document.getElementById("settings");
-			d5 = document.getElementById("game");
-			d1.style.display = "block";
-			d2.style.display = "none";
-			d3.style.display = "none";
-			d4.style.display = "none";
-			d5.style.display = "none";
-		});
-
-		//color1
-		(function () {
-			var previous;
-			$("#ball1c").on('focus', function () {
-				previous = this.value;
-			}).change(function () {
-				if ($("#ball2c").val() == $("#ball1c").val() || $("#ball3c").val() == $("#ball1c").val()) {
-					$("#ball1c").val(previous);
-					alert("Color is already taken");
-				}
-				else {
-					var colorStr = $("#ball1c").val();
-					$("#ball1").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-					previous = this.value;
-				}
-			});
-		})();
-
-		//color2
-		(function () {
-			var previous;
-			$("#ball2c").on('focus', function () {
-				previous = this.value;
-			}).change(function () {
-				if ($("#ball2c").val() == $("#ball1c").val() || $("#ball2c").val() == $("#ball3c").val()) {
-					$("#ball2c").val(previous);
-					alert("Color is already taken");
-				}
-				else {
-					var colorStr = $("#ball2c").val();
-					$("#ball2").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-					previous = this.value;
-				}
-			});
-		})();
-
-		//color3
-		(function () {
-			var previous;
-			$("#ball3c").on('focus', function () {
-				previous = this.value;
-			}).change(function () {
-				if ($("#ball2c").val() == $("#ball3c").val() || $("#ball1c").val() == $("#ball3c").val()) {
-					$("#ball3c").val(previous);
-					alert("Color is already taken");
-				}
-				else {
-					var colorStr = $("#ball3c").val();
-					$("#ball3").attr("style", "border-color:" + colorStr + "; color:" + colorStr + "; width:95%");
-					previous = this.value;
-				}
-			});
-		})();
-
-		function checkSimilarKeys(keypressed) {
-			if ($("#leftK").val() == keypressed || $("#rightK").val() == keypressed || $("#upK").val() == keypressed || $("#downK").val() == keypressed) {
-				return false;
-			}
-			return true;
-		}
-
-		function clicklogin() {
-			stopGame();
-			d1 = document.getElementById("welcome");
-			d2 = document.getElementById("login");
-			d3 = document.getElementById("register");
-			d4 = document.getElementById("settings");
-			d5 = document.getElementById("game");
-			d1.style.display = "none";
-			d2.style.display = "block";
-			d3.style.display = "none";
-			d4.style.display = "none";
-			d5.style.display = "none";
-		}
-
-		function clickregister() {
-			stopGame();
-			d1 = document.getElementById("welcome");
-			d2 = document.getElementById("login");
-			d3 = document.getElementById("register");
-			d4 = document.getElementById("settings");
-			d5 = document.getElementById("game");
-			d1.style.display = "none";
-			d2.style.display = "none";
-			d3.style.display = "block";
-			d4.style.display = "none";
-			d5.style.display = "none";
-		}
-
-		function clicksettings() {
-			stopGame();
-			d1 = document.getElementById("welcome");
-			d2 = document.getElementById("login");
-			d3 = document.getElementById("register");
-			d4 = document.getElementById("settings");
-			d5 = document.getElementById("game");
-			d1.style.display = "none";
-			d2.style.display = "none";
-			d3.style.display = "none";
-			d4.style.display = "block";
-			d5.style.display = "none";
-		}
-
-		function showGame() {
-			d1 = document.getElementById("welcome");
-			d2 = document.getElementById("login");
-			d3 = document.getElementById("register");
-			d4 = document.getElementById("settings");
-			d5 = document.getElementById("game");
-			d1.style.display = "none";
-			d2.style.display = "none";
-			d3.style.display = "none";
-			d4.style.display = "none";
-			d5.style.display = "block";
-			Start();
-		}
-
-		function stopGame() {
-			$('audio#bgm')[0].pause();
-			$('audio#bgm')[0].currentTime = 0;
-			window.clearInterval(interval);
-		}
-
-		function fillLables(leftkey, rightkey, upkey, downkey, ball1color, ball1point, ball2color, ball2point, ball3color, ball3point, time, numberOfEnemies, numberOfBalls) {
-			$("#userId").html("User: <b>" + currentUser.userName + "</b>");
-
-			$("#leftks").html(leftkey);
-			$("#rightks").html(rightkey);
-			$("#upks").html(upkey);
-			$("#downks").html(downkey);
-
-			$("#ballscs").html(numberOfBalls);
-
-			$("#ball1lbl").attr("style", "color: " + ball1color);
-			$("#ball1cs").html(ball1color);
-			$("#ball1cs").attr("style", "color: " + ball1color);
-			$("#ball1cscr").html(ball1point);
-			$("#ball1cscr").attr("style", "color: " + ball1color);
-
-			$("#ball2lbl").attr("style", "color: " + ball2color);
-			$("#ball2cs").html(ball2color);
-			$("#ball2cs").attr("style", "color: " + ball2color);
-			$("#ball2cscr").html(ball2point);
-			$("#ball2cscr").attr("style", "color: " + ball2color);
-
-			$("#ball3lbl").attr("style", "color: " + ball3color);
-			$("#ball3cs").html(ball3color);
-			$("#ball3cs").attr("style", "color: " + ball3color);
-			$("#ball3cscr").html(ball3point);
-			$("#ball3cscr").attr("style", "color: " + ball3color);
-
-			$("#timercs").html(time + " Seconds");
-
-			$("#noecs").html(numberOfEnemies);
-
-		}
-
-
-	</script>
 	<!-- Vendor JS-->
 	<script src="./vendor/select2/select2.min.js"></script>
 	<script src="./vendor/datepicker/moment.min.js"></script>
 	<script src="./vendor/datepicker/daterangepicker.js"></script>
 
 	<!-- Main JS-->
-	<script src="./global.js"></script>
+	<script src="./js/global.js"></script>
+	<script type="text/javascript" src="./js/buttons.js"></script>
+	<script type="text/javascript" src="./js/gameFunctionality.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+	<script type="text/javascript" src="./js/validation.js"></script>
+	<script type="text/javascript" src="./js/settings.js"></script>
 </body>
 
 </html>
